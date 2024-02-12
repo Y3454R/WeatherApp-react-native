@@ -1,64 +1,49 @@
-import React from "react";
-import CurrentWeather from "./src/screens/CurrentWeather";
-import UpcomingWeather from "./src/screens/UpcomingWeather";
-import City from "./src/screens/City";
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather } from "@expo/vector-icons";
+import Tabs from "./src/components/Tabs";
+import * as Location from "expo-location";
+import { WEATHER_API_KEY } from "@env";
 
-const Tab = createBottomTabNavigator();
+import { useGetWeather } from "./hooks/useGetWeather";
 
 const App = () => {
+  const [loading, error, weather] = useGetWeather();
+
+  // console.log(error, loading, weather);
+
+  if (weather && weather.list) {
+    return (
+      <NavigationContainer>
+        <Tabs weather={weather} />
+      </NavigationContainer>
+    );
+  }
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "grey",
-        }}
-      >
-        <Tab.Screen
-          name={"Current"}
-          component={CurrentWeather}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"droplet"}
-                size={25}
-                color={focused ? "tomato" : "black"}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={"Upcoming"}
-          component={UpcomingWeather}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"clock"}
-                size={25}
-                color={focused ? "tomato" : "black"}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={"City"}
-          component={City}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"home"}
-                size={25}
-                color={focused ? "tomato" : "black"}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <ActivityIndicator size={"large"} color={"blue"} />
+    </View>
   );
+
+  // if (error) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>{error}</Text>
+  //     </View>
+  //   );
+  // }
+
+  //   if (weather) {
+  //   console.log(weather);
+  // }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    flex: 1,
+  },
+});
 
 export default App;
