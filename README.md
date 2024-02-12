@@ -3,7 +3,7 @@ To make the project ready:
   ```sh
   npm install
   ```
-  To run the project with expo go:
+To run the project with expo go:
 - npm
   ```sh
   npm start -- --tunnel
