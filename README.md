@@ -1,3 +1,5 @@
+Following this video tutorial: https://youtu.be/obH0Po_RdWk?si=O1rbh1ad7oWPwQN4
+<br/>
 To make the project ready:
 - npm
   ```sh
