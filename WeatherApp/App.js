@@ -25,18 +25,6 @@ const App = () => {
       <ActivityIndicator size={"large"} color={"blue"} />
     </View>
   );
-
-  // if (error) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>{error}</Text>
-  //     </View>
-  //   );
-  // }
-
-  //   if (weather) {
-  //   console.log(weather);
-  // }
 };
 
 const styles = StyleSheet.create({
